@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -38,10 +39,16 @@ class PersonTest {
     }
 
     @Test
-    public void selectPersonWhoHasAgeMoreThanTwenty(){
-        List<Person> filterPeople = people.stream().filter(p -> p.getAge() >= 20).toList();
-
-        assertAll(()-> assertEquals(3, filterPeople.size()));
+    public void selectPersonWhoHasAgeMoreThanTwenty() {
+        List<Person> filterPeople = sortPerson.filterByAge(people);
+        assertAll(() -> assertEquals(3, filterPeople.size()));
     }
 
+    @Test
+    public void groupByGender() {
+        Map<Person.Gender, List<Person>> genderListMap = sortPerson.groupByGender(people);
+        assertAll(() -> assertEquals(2, genderListMap.get(Person.Gender.MALE).size()),
+                () -> assertEquals(3, genderListMap.get(Person.Gender.FEMALE).size())
+        );
+    }
 }

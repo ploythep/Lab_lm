@@ -2,17 +2,24 @@ package com.ass.lmwn;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
-public class SortPerson implements Comparator<Person> {
+public class SortPerson {
 
     public List<Person> sortByFirstNamethenLastName(List<Person> people) {
         return people.stream().sorted(Comparator.comparing(Person::getFirstName).thenComparing(Person::getLastName)).toList();
     }
 
-    @Override
-    public int compare(Person o1, Person o2) {
-        return 0;
+
+    public List<Person> filterByAge(List<Person> people) {
+        return people.stream().filter(p -> p.getAge() >= 20).toList();
     }
 
-
+    public Map<Person.Gender, List<Person>> groupByGender(List<Person> people) {
+        return people
+                .stream()
+                .collect(
+                        Collectors.groupingBy(Person::getGender));
+    }
 }
