@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -40,7 +41,9 @@ class PersonTest {
 
     @Test
     public void selectPersonWhoHasAgeMoreThanTwenty() {
-        List<Person> filterPeople = sortPerson.filterByAge(people);
+//        List<Person> filterPeople = sortPerson.filterByAge(people);
+        Predicate<Person> isAgeOverOrEquealToTwenty = (x) -> x.getAge() > 20 ;
+        List<Person> filterPeople = people.stream().filter(isAgeOverOrEquealToTwenty).toList();
         assertAll(() -> assertEquals(3, filterPeople.size()));
     }
 
